@@ -13,7 +13,6 @@ const Person = unionize({
   CODER: ofType<PersonData>(),
 })
 
-const Rick = Person.CODER({name: 'rick'})
 
 const isCoder = Person.is.CODER(Rick)
 log(isCoder)
@@ -29,3 +28,19 @@ const MatureRick = Person.transform(Rick, {
 })
 const isAdult = Person.is.ADULT(MatureRick)
 log(isAdult)
+
+class Maybe {
+  static of(value) {
+    return new Maybe(value)
+  }
+  constructor(value) {
+    this.value = value
+  }
+
+  isNothing() {
+    this.value
+  }
+  fold(render) {
+    return this.isNothing() ? null : render(this.value)
+  }
+}
